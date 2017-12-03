@@ -62,20 +62,15 @@ def walk_with_values(n):
 
 def calc_current_sq(x, y):
     # look up all surrounding coordinates and sum.
-    # starting top left and going around clockwise
-    v1 = get_value_from(x-1, y+1)
-    v2 = get_value_from(x, y+1)
-    v3 = get_value_from(x+1, y+1)
-    v4 = get_value_from(x+1, y)
-    v5 = get_value_from(x+1, y-1)
-    v6 = get_value_from(x, y-1)
-    v7 = get_value_from(x-1, y-1)
-    v8 = get_value_from(x-1, y)
-    sum_of_neighbours = v1 + v2 + v3 + v4 + v5 + v6 + v7 + v8
+    sum_neighbours = 0
+    for i in range(-1, 1):
+        for j in range(-1, 1):
+            if not (i == 0 and j == 0):  # exclude center square
+                sum_neighbours += get_value_from(x+i, y+j)
     # save in x,y
     new_key = "%dx%d" % (x, y)
-    matrix[new_key] = sum_of_neighbours
-    return sum_of_neighbours
+    matrix[new_key] = sum_neighbours
+    return sum_neighbours
 
 
 def get_value_from(x, y):
